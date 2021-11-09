@@ -1,0 +1,68 @@
+﻿@page
+@model SkateShop.Pages.ShoppingCart.IndexModel
+@{
+    ViewData["Title"] = "Cart";
+}
+
+@if (Model.Cart.Count > 0)
+{
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-md-auto">
+            <div class="jumbotron">
+                <h1 class="display-4">Cart</h1>
+                <p class="lead">@Model.Cart.Count items in the cart</p>
+                <hr class="my-4">
+                <ul class="list-unstyled">
+                    @foreach (var item in Model.Cart)
+                    {
+                        <li class="media">
+                            <div class="row">
+                                <div class="col">
+                                    <img class=" align-self-end img-fluid w-25 img-thumbnail" src="@item.Product.Image" alt="Generic placeholder image">
+                                </div>
+                                <div class="col">
+                                    <div class="media-body">
+                                        <h5 class="mt-0 mb-1">@item.Product.Name</h5>
+                                        @item.Product.Description
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    @item.Product.Price kr
+                                </div>
+                                <div class="col">
+                                    <button>+</button>@item.Count<button>-</button>
+                                </div>
+                                <div class="col">
+                                    @*<a class="btn btn-danger text-white">Remove</a>*@
+                                    <a class="btn btn-danger text-white" asp-page="/ShoppingCart/Index" asp-page-handler="Delete" asp-route-id="@item.Product.Id">Remove</a>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <p><b>Total:</b> @Model.Total kr</p>
+                <a asp-page="/ShoppingCart/Index" asp-page-handler="Clear" class="btn btn-danger">Clear cart</a>
+                <a asp-page="/ShoppingCart/Shipping" class="btn btn-dark text-white">Continue</a>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <div class="jumbotron">
+                <h1 class="display-4">The cart is empty</h1>
+                <p class="lead">For amazing offers and quality products</p>
+                <hr class="my-4">
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" asp-page="/index" role="button">Explore!</a>
+                </p>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+}
