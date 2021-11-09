@@ -8,17 +8,21 @@ namespace SkateShop.Data
 {
     public class ProductManager
     {
-        public static List<ProductModel> Products { get; set; } = new List<ProductModel>();
+        public static List<ProductModel> Products { get; set; }
 
         public static List<ProductModel> GetHighlightedProducts() 
         {
-            return null;
+            return GetProducts().Where(product => product.Chosen)
+                .ToList();
         }
         public static List<ProductModel> GetSearchedProduct(string search)
+        {            
+            return GetProducts().Where(p => p.Name.Contains(search)).ToList();            
+        }
+
+        public static ProductModel GetProduct(int id)
         {
-            var result = new List<ProductModel>();
-            result = GetProducts().Where(p => p.Name.Contains(search)).ToList();
-            return result;
+            return GetProducts().Where(product => product.Id == id).ToList()[0];
         }
         public static List<ProductModel> GetProducts()
         {
@@ -129,7 +133,7 @@ namespace SkateShop.Data
                         Material = Models.Enum.Material.Wood,
                         Description = "Aurora, You-rora! Handcrafted in Hemavan.",
                         UnitsInStock = 3,
-                        Chosen = true,
+                        Chosen = false,
                         BoardSize = 8,
                         Image = "",
                     },
@@ -157,9 +161,9 @@ namespace SkateShop.Data
                         Material = Models.Enum.Material.Wood,
                         Description = "For people of the land",
                         UnitsInStock = 7,
-                        Chosen = true,
+                        Chosen = false,
                         BoardSize = 8,
-                        Image = "",
+                        Image = "../wwwroot/Assets/",
                     },
                     new Wheels
                     {
@@ -184,7 +188,7 @@ namespace SkateShop.Data
                         Category = Models.Enum.Category.Wheel,
                         Description = "Rad rides crave these rims",
                         UnitsInStock = 10,
-                        Chosen = true,
+                        Chosen = false,
                         Image = "",
                         Durometer = "99A",
                         WheelSize = 52
@@ -198,7 +202,7 @@ namespace SkateShop.Data
                         Category = Models.Enum.Category.Wheel,
                         Description = "Custom made for total road contact",
                         UnitsInStock = 20,
-                        Chosen = true,
+                        Chosen = false,
                         Image = "",
                         Durometer = "99A",
                         WheelSize = 53
@@ -207,15 +211,94 @@ namespace SkateShop.Data
                     {
                         Id = 14,
                         Price = 500,
-                        Name = "Spitfire Rims",
+                        Name = "Spitfire Rad",
                         Color = Models.Enum.Color.Patterned,
                         Category = Models.Enum.Category.Wheel,
                         Description = "Custom made for total road contact",
                         UnitsInStock = 20,
-                        Chosen = true,
+                        Chosen = false,
                         Image = "",
                         Durometer = "99A",
                         WheelSize = 53
+                    },
+                    new Wheels
+                    {
+                        Id = 15,
+                        Price = 459,
+                        Name = "Santa Cruz",
+                        Color = Models.Enum.Color.White,
+                        Category = Models.Enum.Category.Wheel,
+                        Description = "Slick, perfect for shredding",
+                        UnitsInStock = 10,
+                        Chosen = false,
+                        Image = "",
+                        Durometer = "100's",
+                        WheelSize = 53
+                    },
+                    new Shoes
+                    {
+                        Id = 16,
+                        Price = 700,
+                        Name = "DC Tonic",
+                        Color = Models.Enum.Color.Grey,
+                        Category = Models.Enum.Category.Shoes,
+                        Description = "Comfort and durability, provides excellent grip when needed",
+                        UnitsInStock = 8,
+                        Chosen = false,
+                        Image = "https://images.blue-tomato.com/is/image/bluetomato/304263560_front.jpg-4YT7onA_uQovNtQuNrZCa8dXK1Q/Tonik+Skateskor.jpg?$b8$",
+                        ShoeSizeEu = 40
+                    },
+                    new Shoes
+                    {
+                        Id = 17,
+                        Price = 700,
+                        Name = "Nike Fri",
+                        Color = Models.Enum.Color.White,
+                        Category = Models.Enum.Category.Shoes,
+                        Description = "Lightweight for agile moves, eggshell white",
+                        UnitsInStock = 5,
+                        Chosen = false,
+                        Image = "https://images.blue-tomato.com/is/image/bluetomato/304379064_front.jpg-QDAzF8yLhjdymEgEfDz7JsPQcFY/Nyjah+Free+2+NBA+Skateskor.jpg?$b8$",
+                        ShoeSizeEu = 41
+                    },
+                    new Shoes
+                    {
+                        Id = 18,
+                        Price = 999,
+                        Name = "Vans Retro",
+                        Color = Models.Enum.Color.Patterned,
+                        Category = Models.Enum.Category.Shoes,
+                        Description = "None beats the classic, this timeless classic still performs",
+                        UnitsInStock = 5,
+                        Chosen = false,
+                        Image = "https://images.blue-tomato.com/is/image/bluetomato/304461078_front.jpg-lrgaqTMdXv39J5S9DBwECdE2JO4/Skate+Old+Skool+Skateskor.jpg?$b8$",
+                        ShoeSizeEu = 41
+                    },
+                    new Shoes
+                    {
+                        Id = 19,
+                        Price = 799,
+                        Name = "Adidas Buz",
+                        Color = Models.Enum.Color.White,
+                        Category = Models.Enum.Category.Shoes,
+                        Description = "Designed by Buz, durable front for more stopping power",
+                        UnitsInStock = 2,
+                        Chosen = false,
+                        Image = "https://images.blue-tomato.com/is/image/bluetomato/304494977_front.jpg-eopv0HjOzWdRIedrB4_OfpWRXHY/Busenitz+Vulc+II+Skateskor.jpg?$b8$",
+                        ShoeSizeEu = 39
+                    },
+                    new Shoes
+                    {
+                        Id = 20,
+                        Price = 899,
+                        Name = "Emerica Sneaks",
+                        Color = Models.Enum.Color.Blue,
+                        Category = Models.Enum.Category.Shoes,
+                        Description = "Designed by Buz, durable front for more stopping power",
+                        UnitsInStock = 6,
+                        Chosen = false,
+                        Image = "https://images.blue-tomato.com/is/image/bluetomato/304572494_front.jpg-a9YbnmLm2ybpONHT1_DBgIBo8yM/Dickson+Sneakers.jpg?$b8$",
+                        ShoeSizeEu = 42
                     },
                 };
             }
