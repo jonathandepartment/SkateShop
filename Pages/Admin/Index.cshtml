@@ -2,9 +2,11 @@
 @model SkateShop.Pages.Admin.IndexModel
 @{
     ViewData["Title"] = "Admin page";
-}
-<link rel="stylesheet" href="@(nameof(Admin)).StyleSheet.css" />
 
+}
+@section Styles{
+    <link rel="stylesheet" href="~/css/admin.css" />
+}
 
 <table class="table">
     <tr>
@@ -13,7 +15,7 @@
         <th scope="col">Category</th>
         <th scope="col">Price</th>
         <th scope="col">Units in stock</th>
-        <th scope="col"> Highlighted</th>
+        <th scope="col">Highlighted</th>
     </tr>
 
 
@@ -29,11 +31,9 @@
             <td>@product.Category</td>
             <td>@product.Price</td>
             <td>@product.UnitsInStock</td>
-            <td><span class="@chosen" /> </td>
+            <td><span class="@chosen"/></td>
             <td><button type="button" class="btn btn-secondary" id="@product.Id">Edit</button></td>
             <td><button type="button" class="btn btn-danger" id="@product.Id">Delete</button></td>
         </tr>
     }
-
-
 </table>

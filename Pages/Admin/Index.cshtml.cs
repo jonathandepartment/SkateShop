@@ -15,7 +15,6 @@ namespace SkateShop.Pages.Admin
         public void OnGet()
         {
             ProductList = Data.ProductManager.GetProducts();
-          
 
         }
     }

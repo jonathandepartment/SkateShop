@@ -4,4 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\admin.css" />
+  </ItemGroup>
 </Project>
