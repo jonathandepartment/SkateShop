@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Threading.Tasks;
 using SkateShop.Models;
-using static System.Net.Mime.MediaTypeNames;
 using static SkateShop.Models.Enum;
-
 
 namespace SkateShop.Data
 {
@@ -382,5 +378,9 @@ namespace SkateShop.Data
             Products.Add(shoes);
         }
 
+        public static void EditProduct(ProductModel editedProduct, int id)
+        {
+            GetProducts().Where(product => product.Id == id).ToList()[0] = editedProduct;
+        }
     }
 }
