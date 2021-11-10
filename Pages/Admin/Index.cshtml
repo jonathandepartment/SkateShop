@@ -32,7 +32,10 @@
             <td>@product.Price</td>
             <td>@product.UnitsInStock</td>
             <td><span class="@chosen"/></td>
-            <td><button type="button" class="btn btn-secondary" id="@product.Id">Edit</button></td>
+            <td>
+                <a  class="btn btn-secondary" id="@product.Id" asp-page="/Edit" role="button">Edit</a>
+            </td>
+             
             <td><button type="button" class="btn btn-danger" id="@product.Id">Delete</button></td>
         </tr>
     }
