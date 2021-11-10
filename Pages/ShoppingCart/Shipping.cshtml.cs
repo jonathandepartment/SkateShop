@@ -18,10 +18,23 @@ namespace SkateShop.Pages.ShoppingCart
         [BindProperty]
         public string PhoneNumber { get; set; }
         [BindProperty]
-        public double FreightCost { get; set; }
+        public double[] FreightCost { get; set; }
         public void OnGet()
         {
 
+        }
+
+        public IActionResult OnPost()
+        {
+            var orderInfo = new Models.OrderModel
+            {
+                FirstName = FirstName,
+                LastName = LastName,
+                Address = Address,
+                PhoneNumber = PhoneNumber,
+                FreightCost = FreightCost
+            };
+            return RedirectToPage("/ShoppingCart/Payment", orderInfo);
         }
     }
 }

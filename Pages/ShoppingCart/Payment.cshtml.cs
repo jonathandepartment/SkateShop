@@ -12,11 +12,19 @@ namespace SkateShop.Pages.ShoppingCart
         public double Total { get; set; }
         public double Tax { get; set; }
         public List<Models.CartItemModel> CartItems { get; set; }
-        public void OnGet()
+        public Models.OrderModel OrderInfo { get; set; }
+        public void OnGet(Models.OrderModel order)
         {
             CartItems = Data.CartManager.Cart;
             Total = Data.CartManager.GetCartTotal();
             Tax = Math.Round(Total / 12, 2); // 12% Tax
+            OrderInfo = order;
+        }
+
+        public IActionResult OnPost()
+        {
+            //Data.CartManager.RemoveFromStock(CartItems);
+            return RedirectToPage("/ShoppingCart/Index", "Clear");
         }
     }
 }
