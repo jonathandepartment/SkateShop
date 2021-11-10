@@ -10,10 +10,10 @@ namespace SkateShop.Pages.Admin.Edit
     public class IndexModel : PageModel
     {
         public Models.ProductModel Product { get; set; }
-        public void OnGet()
+
+        public void OnGet(int id)
         {
-            //Data.ProductManager.GetProducts();
-            //Product = Data.ProductManager.GetProduct(id);
+            Product = Data.ProductManager.GetProduct(id);
         }
         public void OnPost()
         {

@@ -33,7 +33,8 @@
             <td>@product.UnitsInStock</td>
             <td><span class="@chosen"/></td>
             <td>
-                <a  class="btn btn-secondary" id="@product.Id" asp-page="/Edit" role="button">Edit</a>
+                <a asp-page="/Admin/Edit/Index" asp-route-id=@product.Id class="btn btn-secondary">Edit</a>
+
             </td>
              
             <td><button type="button" class="btn btn-danger" id="@product.Id">Delete</button></td>
