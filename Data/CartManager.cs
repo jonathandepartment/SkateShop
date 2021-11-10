@@ -105,5 +105,10 @@ namespace SkateShop.Data
         {
             Cart = Cart.Where(item => item.Product.Id != id).ToList();
         }
+
+        public static double GetCartTotal()
+        {
+            return Cart.Sum(item => item.Product.Price * item.Count);             
+        }
     }
 }

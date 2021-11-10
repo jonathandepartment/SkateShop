@@ -6,8 +6,9 @@
 
 <div class="row">
     <div class="col"></div>
-    <div class="col">
+    <div class="col bg-light m-5 p-5">
         <div>
+            <h2>Address & Shipping</h2>
             <form method="post">
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -29,13 +30,26 @@
                 </div>
                 <div class="form-group">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck">
+                        <input class="form-check-input" type="radio" name="freight" value="PostNord" />
                         <label class="form-check-label" for="gridCheck">
-                            Check me out
+                            PostNord + 49 kr
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="freight" value="DHL" />
+                        <label class="form-check-label" for="gridCheck">
+                            DHL Free
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="freight" value="Bring" />
+                        <label class="form-check-label" for="gridCheck">
+                            Bring + 79 kr
                         </label>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Sign in</button>
+                <a class="btn btn-dark" asp-page="/ShoppingCart/Index">Back</a>
+                <a class="btn btn-primary" asp-page="/ShoppingCart/Payment">Continue</a>
             </form>
         </div>
     </div>

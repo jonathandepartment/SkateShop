@@ -17,7 +17,17 @@ namespace SkateShop.Pages.ShoppingCart
             //Cart = Data.CartManager.GetCart();
             Cart = Data.CartManager.Cart;
 
-            Total = Cart.Sum(item => item.Product.Price);
+            Total = Data.CartManager.GetCartTotal();
+        }
+
+        public IActionResult OnPostUpdate(int[] quantities)
+        {
+            Cart = Data.CartManager.Cart;
+            for (int i = 0; i < Cart.Count; i++)
+            {
+                Cart[i].Count = quantities[i];
+            }
+            return RedirectToPage("Index");
         }
 
         public IActionResult OnGetDelete(int id)
