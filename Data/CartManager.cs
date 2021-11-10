@@ -21,7 +21,7 @@ namespace SkateShop.Data
                         Color = Models.Enum.Color.Grey,
                         Chosen = false,
                         Description = "Excellent shoes for skating. Durable, lightweight and closefitting for agility",
-                        Image = "https://images.blue-tomato.com/is/image/bluetomato/304263560_front.jpg-4YT7onA_uQovNtQuNrZCa8dXK1Q/Tonik+Skateskor.jpg?$b8$",
+                        Image = "~/Assets/products/sinus-cap-blue.png",
                         UnitsInStock = 10,
                         ShoeSizeEu = 43
                     },
