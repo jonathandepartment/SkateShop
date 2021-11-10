@@ -3,6 +3,37 @@
 @{
     ViewData["Title"] = "Admin page";
 }
+<link rel="stylesheet" href="@(nameof(Admin)).StyleSheet.css" />
 
-<h1>hej</h1>
-<h1>@(Model.Products.ElementAt(0).Name)</h1>
+
+<table class="table">
+    <tr>
+        <th scope="col">Image</th>
+        <th scope="col">Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Price</th>
+        <th scope="col">Units in stock</th>
+        <th scope="col"> Highlighted</th>
+    </tr>
+
+
+    @foreach (var product in Model.ProductList)
+    {
+        var chosen = "";
+        @if (product.Chosen) chosen = "fa fa-star checked";
+        else chosen = "fa fa-star";
+
+        <tr>
+            <td><img src="@product.Image" class="rounded img-fluid w-25" alt="Image of product"></td>
+            <td>@product.Name</td>
+            <td>@product.Category</td>
+            <td>@product.Price</td>
+            <td>@product.UnitsInStock</td>
+            <td><span class="@chosen" /> </td>
+            <td><button type="button" class="btn btn-secondary" id="@product.Id">Edit</button></td>
+            <td><button type="button" class="btn btn-danger" id="@product.Id">Delete</button></td>
+        </tr>
+    }
+
+
+</table>
