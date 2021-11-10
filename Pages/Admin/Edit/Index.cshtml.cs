@@ -15,9 +15,12 @@ namespace SkateShop.Pages.Admin.Edit
         {
             Product = Data.ProductManager.GetProduct(id);
         }
-        public void OnPost()
-        {
 
+        public IActionResult OnGetDelete(int id)
+        {
+            Data.ProductManager.RemoveProduct(id);
+
+            return RedirectToPage("/Admin/Index");
         }
     }
 }

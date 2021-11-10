@@ -37,7 +37,9 @@
 
             </td>
              
-            <td><button type="button" class="btn btn-danger" id="@product.Id">Delete</button></td>
+            <td>
+                <a asp-page="/Admin/Edit/Index" asp-page-handler="Delete" asp-route-id=@product.Id class="btn btn-danger text-white" >Delete</a>
+            </td>
         </tr>
     }
 </table>

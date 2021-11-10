@@ -18,6 +18,12 @@ namespace SkateShop.Data
             return GetProducts().Where(product => product.Chosen)
                 .ToList();
         }
+
+        public static void RemoveProduct(int id)
+        {
+            Products = Products.Where(product => product.Id != id).ToList();
+        }
+
         public static List<ProductModel> GetSearchedProduct(string search)
         {            
             return GetProducts().Where(p => p.Name.Contains(search)).ToList();            
