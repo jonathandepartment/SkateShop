@@ -1,0 +1,45 @@
+﻿@page
+@model SkateShop.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "Admin page";
+
+}
+@section Styles{
+    <link rel="stylesheet" href="~/css/admin.css" />
+}
+
+<table class="table">
+    <tr>
+        <th scope="col">Image</th>
+        <th scope="col">Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Price</th>
+        <th scope="col">Units in stock</th>
+        <th scope="col">Highlighted</th>
+    </tr>
+
+
+    @foreach (var product in Model.ProductList)
+    {
+        var chosen = "";
+        @if (product.Chosen) chosen = "fa fa-star checked";
+        else chosen = "fa fa-star";
+
+        <tr>
+            <td><img src="@product.Image" class="rounded img-fluid w-25" alt="Image of product"></td>
+            <td>@product.Name</td>
+            <td>@product.Category</td>
+            <td>@product.Price</td>
+            <td>@product.UnitsInStock</td>
+            <td><span class="@chosen"/></td>
+            <td>
+                <a asp-page="/Admin/Edit/Index" asp-route-id=@product.Id class="btn btn-secondary">Edit</a>
+
+            </td>
+             
+            <td>
+                <a asp-page="/Admin/Edit/Index" asp-page-handler="Delete" asp-route-id=@product.Id class="btn btn-danger text-white" >Delete</a>
+            </td>
+        </tr>
+    }
+</table>

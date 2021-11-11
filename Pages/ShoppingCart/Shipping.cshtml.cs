@@ -18,9 +18,11 @@ namespace SkateShop.Pages.ShoppingCart
         public string Address { get; set; }
         [BindProperty, Required]
         public string PhoneNumber { get; set; }
+
         [BindProperty, Required]
         public double FreightCost { get; set; }
         public double[] FreightOptions = new[] { 0, 49.0, 79.0 };
+
         public void OnGet()
         {
 
