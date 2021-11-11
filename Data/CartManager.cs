@@ -46,50 +46,6 @@ namespace SkateShop.Data
                 }
                 };
 
-        public static List<CartItemModel> GetCart()
-        {
-            if (!Cart.Any())
-            {
-                Cart = new List<CartItemModel>
-                {
-                    new CartItemModel
-                {
-                    Product = new Models.Shoes
-                    {
-                        Id = 1,
-                        Price = 699,
-                        Name = "DC",
-                        Category = Models.Enum.Category.Shoes,
-                        Color = Models.Enum.Color.Grey,
-                        Chosen = false,
-                        Description = "Excellent shoes for skating. Durable, lightweight and closefitting for agility",
-                        Image = "https://images.blue-tomato.com/is/image/bluetomato/304263560_front.jpg-4YT7onA_uQovNtQuNrZCa8dXK1Q/Tonik+Skateskor.jpg?$b8$",
-                        UnitsInStock = 10,
-                        ShoeSizeEu = 43
-                    },
-                    Count = 1
-                },
-                    new CartItemModel
-                {
-                    Product = new Models.Shoes
-                    {
-                        Id = 3,
-                        Price = 499,
-                        Name = "DC",
-                        Category = Models.Enum.Category.Shoes,
-                        Color = Models.Enum.Color.Grey,
-                        Chosen = false,
-                        Description = "Excellent shoes for skating. Durable, lightweight and closefitting for agility",
-                        Image = "https://images.blue-tomato.com/is/image/bluetomato/304263560_front.jpg-4YT7onA_uQovNtQuNrZCa8dXK1Q/Tonik+Skateskor.jpg?$b8$",
-                        UnitsInStock = 10,
-                        ShoeSizeEu = 43
-                    },
-                    Count = 1
-                }
-                };
-            }
-            return Cart;
-        }
         public static void AddToCart(ProductModel product)
         {
             var productToAdd = new CartItemModel
