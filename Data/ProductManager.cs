@@ -9,6 +9,7 @@ namespace SkateShop.Data
     public class ProductManager
     {
         public static List<ProductModel> Products { get; set; } = new List<ProductModel>(); 
+
         public static List<ProductModel> GetHighlightedProducts() 
         {
             return GetProducts().Where(product => product.Chosen)
@@ -22,7 +23,7 @@ namespace SkateShop.Data
 
         public static List<ProductModel> GetSearchedProduct(string search)
         {            
-            return GetProducts().Where(p => p.Name.Contains(search)).ToList();            
+            return GetProducts().Where(p => p.Name.ToLower().Contains(search.ToLower())).ToList();            
         }
 
         public static ProductModel GetProduct(int id)

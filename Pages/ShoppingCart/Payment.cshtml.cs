@@ -23,8 +23,29 @@ namespace SkateShop.Pages.ShoppingCart
 
         public IActionResult OnPost()
         {
-            //Data.CartManager.RemoveFromStock(CartItems);
-            return RedirectToPage("/ShoppingCart/Index", "Clear");
+            var db = Data.ProductManager.GetProducts();
+            
+            foreach (var cartItem in Data.CartManager.Cart)
+            {
+                foreach (var product in db)
+                {
+                    if (cartItem.Product.Id == product.Id)
+                    {
+                        if (cartItem.Count > product.UnitsInStock)
+                        {
+                            product.UnitsInStock = 0;
+                        }
+                        else
+                        {
+                            product.UnitsInStock -= cartItem.Count;
+                        }
+                    }
+                }
+            }
+            //Data.ProductManager.Products = db;
+
+            Data.CartManager.ClearCart();
+            return RedirectToPage("/ShoppingCart/OrderConfirmation");
         }
     }
 }
