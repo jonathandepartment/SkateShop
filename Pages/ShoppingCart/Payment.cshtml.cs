@@ -24,7 +24,8 @@ namespace SkateShop.Pages.ShoppingCart
         public IActionResult OnPost()
         {
             //Data.CartManager.RemoveFromStock(CartItems);
-            return RedirectToPage("/ShoppingCart/Index", "Clear");
+            Data.CartManager.ClearCart();
+            return RedirectToPage("/ShoppingCart/OrderConfirmation", OrderInfo);
         }
     }
 }
