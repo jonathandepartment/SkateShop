@@ -8,12 +8,18 @@ namespace SkateShop.Data
 {
     public class ProductManager
     {
-        public static List<ProductModel> Products { get; set; }
+        public static List<ProductModel> Products { get; set; } = new List<ProductModel>(); 
         public static List<ProductModel> GetHighlightedProducts() 
         {
             return GetProducts().Where(product => product.Chosen)
                 .ToList();
         }
+
+        public static void RemoveProduct(int id)
+        {
+            Products = Products.Where(product => product.Id != id).ToList();
+        }
+
         public static List<ProductModel> GetSearchedProduct(string search)
         {            
             return GetProducts().Where(p => p.Name.Contains(search)).ToList();            
@@ -39,7 +45,7 @@ namespace SkateShop.Data
                         Description = "Durable, soft and dependable for the gnarliest skaters",
                         UnitsInStock = 10,
                         Chosen = true,
-                        Image = "~/wwwroot/Assets/products/sinus-hoodie-ash.png",
+                        Image = "~/wwwroot/Assets/products/sinus-hoodie-ash.png", 
                         Size = Models.Enum.Size.L
                     },
                     new Clothing

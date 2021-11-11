@@ -6,6 +6,8 @@
     <title>@ViewData["Title"] - SkateShop</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @RenderSection("Styles", false)
 </head>
 <body>
     <header>
@@ -38,6 +40,7 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2021 - SkateShop - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            <a asp-page="/Admin/index"> Admin</a>
         </div>
     </footer>
 
