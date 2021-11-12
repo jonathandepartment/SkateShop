@@ -1,24 +1,23 @@
 ﻿@page
-@model IndexModel
+@model SkateShop.Pages.Products.SearchModel
 @{
-    ViewData["Title"] = "Home page";
 }
 
-<div class="jumbotron">
-    <h1 class="display-4">Welcome to our Skate e-Shop</h1>
-    <p class="lead"></p>
-</div>
 <div class="container">
     <div class="row">
-        @foreach (var product in Model.ProductList)
+        @foreach (var product in Model.SearchList)
         {
             <div class="col-4">
                 <div class="card mr-" style="width: 18rem;">
                     <img class="card-img-top" src="@product.Image" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">@product.Name</h5>
-                        <h6>@product.Price</h6>
+                        <h4>@product.Price</h4>
                         <p>Left in stock: @product.UnitsInStock</p>
+                        @if (product.UnitsInStock < 3)
+                        {
+                            <p>Fåtal kvar i lager</p>
+                        }
                         <a asp-page="/Products/ProductID" asp-route-ID="@product.Id" class="btn btn-primary">Product Info</a>
                     </div>
                 </div>

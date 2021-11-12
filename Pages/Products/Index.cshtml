@@ -1,4 +1,90 @@
 ﻿@page
 @model SkateShop.Pages.Products.IndexModel
 @{
+    ViewData["Title"] = "Product page";
 }
+
+<form method="post" asp-page="/Products/Search">
+    <div class="form-group">
+        <label for="Search">Search product</label>
+        <input type="search" id="search" name="searchStr" placeholder="Search">
+    </div>
+    <button type="submit" class="btn btn-primary" asp-page-handler="Submit" >Submit</button>
+</form>
+
+<div class="container">
+    <div class="row">
+        @foreach (var product in Model.HoodieList)
+        {
+            <div class="col-4">
+                <div class="card mr-" style="width: 18rem;">
+                    <img class="card-img-top" src="@product.Image" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <h4>@product.Price</h4>
+                        <p>Left in stock: @product.UnitsInStock</p>
+                        @if (product.UnitsInStock < 3)
+                        {
+                            <p>Fåtal kvar i lager</p>
+                        }
+                        <a asp-page="/Products/ProductID" asp-route-ID="@product.Id" class="btn btn-primary">Product Info</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<br />
+<br />
+<div class="container">
+    <div class="row">
+        @foreach (var product in Model.SkateBoardList)
+        {
+            <div class="col-4">
+                <div class="card mr-" style="width: 18rem;">
+                    <img class="card-img-top" src="@product.Image" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <h4>@product.Price</h4>
+                        <p>Left in stock: @product.UnitsInStock</p>
+                        @if (product.UnitsInStock < 3)
+                        {
+                            <p>Fåtal kvar i lager</p>
+                        }
+                        <a asp-page="/Products/ProductID" asp-route-ID="@product.Id" class="btn btn-primary">Product Info</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<br />
+<br />
+<div class="container">
+    <div class="row">
+        @foreach (var product in Model.WheelList)
+        {
+            <div class="col-4">
+                <div class="card mr-" style="width: 18rem;">
+                    <img class="card-img-top" src="@product.Image" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <h4>@product.Price</h4>
+                        <p>Left in stock: @product.UnitsInStock</p>
+                        @if (product.UnitsInStock < 3)
+                        {
+                            <p>Fåtal kvar i lager</p>
+                        }
+                        <a asp-page="/Products/ProductID" asp-route-ID="@product.Id" class="btn btn-primary">Product Info</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+
+
