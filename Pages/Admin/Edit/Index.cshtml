@@ -3,4 +3,83 @@
 @{
     ViewData["Title"] = "Edit";
 }
+
 <h1>Edit Product Page</h1>
+
+<div>
+    <img src="@Url.Content(Model.Image)" class="img-fluid w-25" />
+</div>
+    <form method="POST">
+
+        <div class="input-group w-75 mb-2">
+            @Html.LabelFor(model => Model.Image, new { @class = "col-2" })
+            @Html.EditorFor(model => Model.Image, new { htmlAttributes = new { @class = "form-control", @placeholder="Image path url" } })
+        </div>
+
+        <div class="input-group w-75 mb-2 ">
+            @Html.LabelFor(model => Model.Name, new { @class = "col-2" })
+            @Html.EditorFor(model => Model.Name, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="input-group w-75 mb-2 ">
+            @Html.LabelFor(model => Model.Price, new { @class = "col-2" })
+            @Html.EditorFor(model => Model.Price, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="input-group w-75 mb-2 ">
+            @Html.LabelFor(model => Model.Description, new { @class = "col-2" })
+            @Html.TextAreaFor(model => Model.Description, 5, 50, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="input-group w-75 mb-2 ">
+            @Html.LabelFor(model => Model.Color, new { @class = "col-2" })
+            <select asp-for="@Model.Color" asp-items="Html.GetEnumSelectList<Models.Enum.Color>()" class="form-control col-3" ></select>
+        </div>
+
+        <div class="input-group w-75 mb-2">
+            @Html.LabelFor(model => Model.UnitsInStock, new { @class = "col-2" })
+            @Html.EditorFor(model => Model.UnitsInStock, new { htmlAttributes = new { @class = "form-control col-3" } })
+
+        </div>
+
+        @{
+            if (Model.Category == Models.Enum.Category.Hoodie
+                || Model.Category == Models.Enum.Category.Cap
+                || Model.Category == Models.Enum.Category.Hoodie
+                || Model.Category == Models.Enum.Category.Tshirt)
+            {
+                @Html.LabelFor(model => Model.Size, "Clothing size", new { @class = "col-3" })
+                <select asp-for="@Model.Size" asp-items="Html.GetEnumSelectList<Models.Enum.Size>()" class="form-control col-3"></select>
+            }
+            if (Model.Category == Models.Enum.Category.Shoes)
+            {
+                @Html.LabelFor(model => Model.ShoeSizeEu, "Shoe-Size EU", new { @class = "col-3" })
+                @Html.EditorFor(model => Model.ShoeSizeEu, new { htmlAttributes = new { @class = "form-control col-3" } })
+            }
+            if (Model.Category == Models.Enum.Category.Skateboard)
+            {
+                <div class="input-group w-75 mb-2">
+                    @Html.LabelFor(model => Model.BoardSize, new { @class = "col-2" })
+                    @Html.EditorFor(model => Model.BoardSize, new { htmlAttributes = new { @class = "form-control col-3" } })
+
+                    @Html.LabelFor(model => Model.Material, new { @class = "col-2" })
+                    <select asp-for="@Model.Material" asp-items="Html.GetEnumSelectList<Models.Enum.Material>()" class="form-control col-3"></select>
+                </div>
+            }
+            if (Model.Category == Models.Enum.Category.Wheel)
+            {
+                <h1>Wheels</h1>
+                @Html.LabelFor(model => Model.WheelSize, new { @class = "col-2" })
+                @Html.EditorFor(model => Model.WheelSize, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.LabelFor(model => Model.Durometer, new { @class = "col-2" })
+                @Html.EditorFor(model => Model.Durometer, new { htmlAttributes = new { @class = "form-control" } })
+            }
+
+        }
+        <div class="input-group w-75 mb-2">
+            @Html.LabelFor(model => Model.Chosen, new { @class = "col-2" })
+            @Html.EditorFor(model => Model.Chosen, new { htmlAttributes = new { @class = "form-control col-1" } })
+            <input type="submit" value="Submit" asp-route-category="@Model.Category" asp-route-id="@Model.ProductId" asp-page-handler="Submit"  />
+        </div>
+    </form>

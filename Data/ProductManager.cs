@@ -45,7 +45,7 @@ namespace SkateShop.Data
                         Description = "Durable, soft and dependable for the gnarliest skaters",
                         UnitsInStock = 10,
                         Chosen = true,
-                        Image = "~/wwwroot/Assets/products/sinus-hoodie-ash.png", 
+                        Image = "~/Assets/products/sinus-hoodie-ash.png", 
                         Size = Models.Enum.Size.L
                     },
                     new Clothing
@@ -386,7 +386,8 @@ namespace SkateShop.Data
 
         public static void EditProduct(ProductModel editedProduct, int id)
         {
-            GetProducts().Where(product => product.Id == id).ToList()[0] = editedProduct;
+            int index = Products.IndexOf(GetProducts().Where(product => product.Id == id).ToList()[0]);
+            Products[index] = editedProduct;
         }
     }
 }

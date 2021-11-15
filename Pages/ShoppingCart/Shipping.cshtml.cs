@@ -18,7 +18,7 @@ namespace SkateShop.Pages.ShoppingCart
         [BindProperty]
         public string PhoneNumber { get; set; }
         [BindProperty]
-        public double[] FreightCost { get; set; }
+        public double FreightCost { get; set; }
         public void OnGet()
         {
 
