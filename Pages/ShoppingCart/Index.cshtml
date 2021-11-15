@@ -20,7 +20,7 @@
                             <li class="media">
                                 <div class="row">
                                     <div class="col">
-                                        <img class=" align-self-end img-fluid w-25 img-thumbnail" src="@item.Product.Image" alt="@item.Product.Description">
+                                        <img class=" align-self-end img-fluid w-25 img-thumbnail" src="@Url.Content(item.Product.Image)" alt="@item.Product.Description">
                                     </div>
                                     <div class="col">
                                         <div class="media-body">
@@ -47,6 +47,8 @@
                 <p><b>Total:</b> @Model.Total kr</p>
                 <a asp-page="/ShoppingCart/Index" asp-page-handler="Clear" class="btn btn-danger">Clear cart</a>
                 <a asp-page="/ShoppingCart/Shipping" class="btn btn-dark text-white">Continue</a>
+                <hr />
+                <a asp-page="/Products/Index" class="btn btn-primary text-white">Continue Shopping</a>
             </div>
         </div>
         <div class="col"></div>

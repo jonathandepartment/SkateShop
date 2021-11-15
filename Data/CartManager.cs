@@ -8,96 +8,39 @@ namespace SkateShop.Data
 {
     public class CartManager
     {
-        public static List<CartItemModel> Cart { get; set; } = new List<CartItemModel>
-                {
-                    new CartItemModel
-                {
-                    Product = new Models.Shoes
-                    {
-                        Id = 1,
-                        Price = 699,
-                        Name = "DC",
-                        Category = Models.Enum.Category.Shoes,
-                        Color = Models.Enum.Color.Grey,
-                        Chosen = false,
-                        Description = "Excellent shoes for skating. Durable, lightweight and closefitting for agility",
-                        Image = "https://images.blue-tomato.com/is/image/bluetomato/304263560_front.jpg-4YT7onA_uQovNtQuNrZCa8dXK1Q/Tonik+Skateskor.jpg?$b8$",
-                        UnitsInStock = 10,
-                        ShoeSizeEu = 43
-                    },
-                    Count = 1
-                },
-                    new CartItemModel
-                {
-                    Product = new Models.Shoes
-                    {
-                        Id = 3,
-                        Price = 499,
-                        Name = "DC",
-                        Category = Models.Enum.Category.Shoes,
-                        Color = Models.Enum.Color.Grey,
-                        Chosen = false,
-                        Description = "Excellent shoes for skating. Durable, lightweight and closefitting for agility",
-                        Image = "https://images.blue-tomato.com/is/image/bluetomato/304263560_front.jpg-4YT7onA_uQovNtQuNrZCa8dXK1Q/Tonik+Skateskor.jpg?$b8$",
-                        UnitsInStock = 10,
-                        ShoeSizeEu = 43
-                    },
-                    Count = 1
-                }
-                };
 
-        public static List<CartItemModel> GetCart()
-        {
-            if (!Cart.Any())
-            {
-                Cart = new List<CartItemModel>
-                {
-                    new CartItemModel
-                {
-                    Product = new Models.Shoes
-                    {
-                        Id = 1,
-                        Price = 699,
-                        Name = "DC",
-                        Category = Models.Enum.Category.Shoes,
-                        Color = Models.Enum.Color.Grey,
-                        Chosen = false,
-                        Description = "Excellent shoes for skating. Durable, lightweight and closefitting for agility",
-                        Image = "https://images.blue-tomato.com/is/image/bluetomato/304263560_front.jpg-4YT7onA_uQovNtQuNrZCa8dXK1Q/Tonik+Skateskor.jpg?$b8$",
-                        UnitsInStock = 10,
-                        ShoeSizeEu = 43
-                    },
-                    Count = 1
-                },
-                    new CartItemModel
-                {
-                    Product = new Models.Shoes
-                    {
-                        Id = 3,
-                        Price = 499,
-                        Name = "DC",
-                        Category = Models.Enum.Category.Shoes,
-                        Color = Models.Enum.Color.Grey,
-                        Chosen = false,
-                        Description = "Excellent shoes for skating. Durable, lightweight and closefitting for agility",
-                        Image = "https://images.blue-tomato.com/is/image/bluetomato/304263560_front.jpg-4YT7onA_uQovNtQuNrZCa8dXK1Q/Tonik+Skateskor.jpg?$b8$",
-                        UnitsInStock = 10,
-                        ShoeSizeEu = 43
-                    },
-                    Count = 1
-                }
-                };
-            }
-            return Cart;
-        }
+        public static List<CartItemModel> Cart { get; set; } = new List<CartItemModel>();
+
         public static void AddToCart(ProductModel product)
         {
-            var productToAdd = new CartItemModel
+            if (IsItInCart(product))
             {
-                Product = product,
-                Count = 1
-            };
-            Cart.Add(productToAdd);
+                foreach (var item in Cart)
+                {
+                    if (item.Product.Id == product.Id)
+                    {
+                        if (item.Count + 1 <= product.UnitsInStock)
+                        {
+                            item.Count++;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var productToAdd = new CartItemModel
+                {
+                    Product = product,
+                    Count = 1
+                };
+                Cart.Add(productToAdd);
+            }
+        }
+
+        private static bool IsItInCart(ProductModel product)
+        {
+            var productsInCart = Cart.Select(item => item.Product);
+            return productsInCart.Contains(product);
         }
 
         public static void ClearCart() => Cart.Clear();

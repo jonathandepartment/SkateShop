@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -9,16 +10,21 @@ namespace SkateShop.Pages.ShoppingCart
 {
     public class ShippingModel : PageModel
     {
-        [BindProperty]
+        [BindProperty, Required]
         public string FirstName { get; set; }
-        [BindProperty]
+        [BindProperty, Required]
         public string LastName { get; set; }
-        [BindProperty]
+        [BindProperty, Required]
         public string Address { get; set; }
-        [BindProperty]
+        [BindProperty, Required]
         public string PhoneNumber { get; set; }
-        [BindProperty]
+
+
+        [BindProperty, Required]
         public double FreightCost { get; set; }
+        public double[] FreightOptions = new[] { 0, 49.0, 79.0 };
+
+
         public void OnGet()
         {
 
@@ -26,15 +32,19 @@ namespace SkateShop.Pages.ShoppingCart
 
         public IActionResult OnPost()
         {
-            var orderInfo = new Models.OrderModel
+            if (ModelState.IsValid)
             {
-                FirstName = FirstName,
-                LastName = LastName,
-                Address = Address,
-                PhoneNumber = PhoneNumber,
-                FreightCost = FreightCost
-            };
-            return RedirectToPage("/ShoppingCart/Payment", orderInfo);
+                var orderInfo = new Models.OrderModel
+                {
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    Address = Address,
+                    PhoneNumber = PhoneNumber,
+                    FreightCost = FreightCost
+                };
+                return RedirectToPage("/ShoppingCart/Payment", orderInfo);
+            }
+            return Page();
         }
     }
 }

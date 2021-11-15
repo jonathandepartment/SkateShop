@@ -14,42 +14,36 @@
                     <div class="form-group col-md-6">
                         <label>Firstname</label>
                         <input type="text" asp-for="FirstName" class="form-control" placeholder="Firstname">
+                        <span style="color: red;" asp-validation-for="FirstName"></span>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Lastname</label>
                         <input type="text" asp-for="LastName" class="form-control" placeholder="Lastname">
+                        <span style="color: red;" asp-validation-for="LastName"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Address</label>
                     <input type="text" asp-for="Address" class="form-control" placeholder="Kungsgatan">
+                    <span style="color: red;" asp-validation-for="Address"></span>
                 </div>
                 <div class="form-group">
-                    <label>Phonenumber</label>
+                    <label>Phone number</label>
                     <input asp-for="PhoneNumber" type="text" class="form-control" placeholder="XXX-XXXXXXX">
+                    <span style="color: red;" asp-validation-for="PhoneNumber"></span>
+                </div>
+                <h3>Shipping</h3>
+                <div class="form-group">
+                    <input class="form-check-input" type="radio" asp-for="FreightCost" value="@Model.FreightOptions[0]" id="Gender@(@Model.FreightOptions[0])" />PostNord @Model.FreightOptions[0] kr
                 </div>
                 <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="freight" value="49" asp-for="FreightCost" />
-                        <label class="form-check-label" for="gridCheck">
-                            PostNord + 49 kr
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="freight" value="0" asp-for="FreightCost" />
-                        <label class="form-check-label" for="gridCheck">
-                            DHL Free
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="freight" value="79" asp-for="FreightCost" />
-                        <label class="form-check-label" for="gridCheck">
-                            Bring + 79 kr
-                        </label>
-                    </div>
+                    <input class="form-check-input" type="radio" asp-for="FreightCost" value="@Model.FreightOptions[1]" id="Gender@(@Model.FreightOptions[1])" />DHL @Model.FreightOptions[1] kr
                 </div>
-                <a class="btn btn-dark" asp-page="/ShoppingCart/Index">Back</a>
-                <input class="btn btn-primary" type="submit" value="Continue"/>
+                <div class="form-group">
+                    <input class="form-check-input" type="radio" asp-for="FreightCost" value="@Model.FreightOptions[2]" id="Gender@(@Model.FreightOptions[2])" />UPS @Model.FreightOptions[2] kr
+                </div>
+                <a class="btn btn-dark mr-1" asp-page="/ShoppingCart/Index">Back</a>
+                <input class="btn btn-primary" type="submit" value="Continue" />
             </form>
         </div>
     </div>
