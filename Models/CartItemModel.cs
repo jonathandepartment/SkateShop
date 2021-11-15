@@ -10,4 +10,5 @@ namespace SkateShop.Models
         public Models.ProductModel Product { get; set; }
         public int Count { get; set; }
     }
+
 }

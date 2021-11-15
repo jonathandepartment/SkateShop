@@ -42,7 +42,7 @@ namespace SkateShop.Pages.ShoppingCart
                     }
                 }
             }
-            //Data.ProductManager.Products = db;
+            Data.ProductManager.Products = db;
 
             Data.CartManager.ClearCart();
             return RedirectToPage("/ShoppingCart/OrderConfirmation");
