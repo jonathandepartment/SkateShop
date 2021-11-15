@@ -15,18 +15,11 @@ namespace SkateShop.Pages.Products
         public List<ProductModel> ProductList { get; set; }
         [BindProperty]
         public string Search { get; set; }
-        public void OnGet(string SearchResult)
+        public void OnGet(string searchString)
         {
-            Search = SearchResult;
+            Search = searchString;
             ProductList = ProductManager.GetProducts();
-            SearchList = ProductList.Where(p => p.Name.Contains(Search)).ToList();
-        }
-
-        public void OnPost(string SearchResult)
-        {
-            Search = SearchResult;
-            ProductList = ProductManager.GetProducts();
-            SearchList = ProductList.Where(p => p.Name.Contains(Search)).ToList();
+            SearchList = ProductList.Where(p => p.Name.ToLower().Contains(Search.ToLower())).ToList();
         }
     }
 }

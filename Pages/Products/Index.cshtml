@@ -4,12 +4,12 @@
     ViewData["Title"] = "Product page";
 }
 
-<form method="post" asp-page="/Products/Search">
+<form method="get">
     <div class="form-group">
         <label for="Search">Search product</label>
-        <input type="search" id="search" name="searchStr" placeholder="Search">
+        <input type="search" id="searchStr" name="searchString" placeholder="Search">
     </div>
-    <button type="submit" class="btn btn-primary" asp-page-handler="Submit" >Submit</button>
+    <button type="submit" class="btn btn-primary" asp-page="/Products/Search" asp-route-ID="searchString" >Submit</button>
 </form>
 
 <div class="container">

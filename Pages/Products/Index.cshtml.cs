@@ -18,7 +18,7 @@ namespace SkateShop.Pages.Products
         public List<ProductModel> TshirtList { get; set; }
         public List<ProductModel> WheelList { get; set; }
         public List<ProductModel> ShoeList { get; set; }
-        public string SearchResult { get; set; }
+        public List<ProductModel> SearchList { get; set; }
         public void OnGet()
         {
             ProductList = Data.ProductManager.GetProducts();
@@ -33,11 +33,11 @@ namespace SkateShop.Pages.Products
             //CapList = ProductList.Where(p => p.Category == Models.Enum.Category.Cap).ToList();
         }
 
-        public void OnPost(string searchStr)
+        public void OnGetSearch(string searchString)
         {
-            SearchResult = searchStr;
-            /*return RedirectToPage("/Products/Search", SearchResult)*/;
-            
+            SearchList = Data.ProductManager.GetProducts()
+                .Where(product => product.Name.ToLower().Contains(searchString.ToLower())).ToList();
+             
         }
     }
 }
