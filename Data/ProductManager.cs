@@ -387,7 +387,8 @@ namespace SkateShop.Data
 
         public static void EditProduct(ProductModel editedProduct, int id)
         {
-            GetProducts().Where(product => product.Id == id).ToList()[0] = editedProduct;
+            int index = Products.IndexOf(GetProducts().Where(product => product.Id == id).ToList()[0]);
+            Products[index] = editedProduct;
         }
     }
 }
