@@ -1,0 +1,20 @@
+﻿@page
+@model SkateShop.Pages.Products.ProductIDModel
+@{
+}
+
+@foreach (var p in Model.Product)
+{
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="@p.Image" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">@p.Name </h5>
+            <p class="card-text">@p.Price </p>
+            <p class="card-text">@p.Category </p>
+            <p class="card-text">@p.Color </p>
+            <p class="card-text">@p.Description </p>
+            <p class="card-text">@p.UnitsInStock </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+}
