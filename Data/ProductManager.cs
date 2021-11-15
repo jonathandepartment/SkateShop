@@ -9,6 +9,7 @@ namespace SkateShop.Data
     public class ProductManager
     {
         public static List<ProductModel> Products { get; set; } = new List<ProductModel>(); 
+
         public static List<ProductModel> GetHighlightedProducts() 
         {
             return GetProducts().Where(product => product.Chosen)
@@ -22,7 +23,7 @@ namespace SkateShop.Data
 
         public static List<ProductModel> GetSearchedProduct(string search)
         {            
-            return GetProducts().Where(p => p.Name.Contains(search)).ToList();            
+            return GetProducts().Where(p => p.Name.ToLower().Contains(search.ToLower())).ToList();            
         }
 
         public static ProductModel GetProduct(int id)
@@ -58,7 +59,7 @@ namespace SkateShop.Data
                         Description = "Durable, soft and dependable for the gnarliest skaters",
                         UnitsInStock = 10,
                         Chosen = false,
-                        Image = "~/wwwroot/Assets/products/sinus-hoodie-ocean.png",
+                        Image = "~/Assets/products/sinus-hoodie-ocean.png",
                         Size = Models.Enum.Size.L
                     },
                     new Clothing
@@ -71,7 +72,7 @@ namespace SkateShop.Data
                         Description = "Durable, soft and dependable for the gnarliest skaters",
                         UnitsInStock = 10,
                         Chosen = false,
-                        Image = "~/wwwroot/Assets/products/sinus-hoodie-fire.png",
+                        Image = "~/Assets/products/sinus-hoodie-fire.png",
                         Size = Models.Enum.Size.M
                     },
                     new Clothing
@@ -80,11 +81,11 @@ namespace SkateShop.Data
                         Price = 700,
                         Name = "Thrasher Hooded",
                         Category = Models.Enum.Category.Hoodie,
-                        Color = Models.Enum.Color.Blue,
+                        Color = Models.Enum.Color.Green,
                         Description = "Durable, soft and dependable for the gnarliest skaters",
                         UnitsInStock = 10,
                         Chosen = false,
-                        Image = "~/wwwroot/Assets/products/sinus-hoodie-green.png",
+                        Image = "~/Assets/products/sinus-hoodie-green.png",
                         Size = Models.Enum.Size.M
                     },
                     new Clothing
@@ -93,11 +94,11 @@ namespace SkateShop.Data
                         Price = 700,
                         Name = "Thrasher Hooded",
                         Category = Models.Enum.Category.Hoodie,
-                        Color = Models.Enum.Color.Blue,
+                        Color = Models.Enum.Color.Purple,
                         Description = "Durable, soft and dependable for the gnarliest skaters",
                         UnitsInStock = 10,
                         Chosen = false,
-                        Image = "~/wwwroot/Assets/products/sinus-hoodie-purple.png",
+                        Image = "~/Assets/products/sinus-hoodie-purple.png",
                         Size = Models.Enum.Size.S
                     },
                     new Boards
@@ -112,7 +113,7 @@ namespace SkateShop.Data
                         UnitsInStock = 4,
                         Chosen = true,
                         BoardSize = 7.5,
-                        Image = "",
+                        Image = "~/Assets/products/sinus-skateboard-gretasfury.png",
                     },
                     new Boards
                     {
@@ -126,7 +127,7 @@ namespace SkateShop.Data
                         UnitsInStock = 2,
                         Chosen = false,
                         BoardSize = 7.5,
-                        Image = "",
+                        Image = "~/Assets/products/sinus-skateboard-ink.png",
                     },
                     new Boards
                     {
@@ -140,7 +141,7 @@ namespace SkateShop.Data
                         UnitsInStock = 3,
                         Chosen = false,
                         BoardSize = 8,
-                        Image = "",
+                        Image = "~/Assets/products/sinus-skateboard-northern_lights.png",
                     },
                     new Boards
                     {
@@ -154,7 +155,7 @@ namespace SkateShop.Data
                         UnitsInStock = 3,
                         Chosen = false,
                         BoardSize = 8,
-                        Image = "",
+                        Image = "~/Assets/products/sinus-skateboard-yellow.png",
                     },
                     new Boards
                     {
@@ -168,7 +169,7 @@ namespace SkateShop.Data
                         UnitsInStock = 7,
                         Chosen = false,
                         BoardSize = 8,
-                        Image = "../wwwroot/Assets/",
+                        Image = "~/Assets/products/sinus-skateboard-fire.png",
                     },
                     new Wheels
                     {
@@ -180,7 +181,7 @@ namespace SkateShop.Data
                         Description = "Custom made for total road contact",
                         UnitsInStock = 20,
                         Chosen = true,
-                        Image = "",
+                        Image = "~/Assets/products/sinus-wheel-rocket.png",
                         Durometer = "99A",
                         WheelSize = 52
                     },
@@ -194,7 +195,7 @@ namespace SkateShop.Data
                         Description = "Rad rides crave these rims",
                         UnitsInStock = 10,
                         Chosen = false,
-                        Image = "",
+                        Image = "~/Assets/products/sinus-wheel-spinner.png",
                         Durometer = "99A",
                         WheelSize = 52
                     },
@@ -208,7 +209,7 @@ namespace SkateShop.Data
                         Description = "Custom made for total road contact",
                         UnitsInStock = 20,
                         Chosen = false,
-                        Image = "",
+                        Image = "~/Assets/products/sinus-wheel-wave.png",
                         Durometer = "99A",
                         WheelSize = 53
                     },
@@ -222,7 +223,7 @@ namespace SkateShop.Data
                         Description = "Custom made for total road contact",
                         UnitsInStock = 20,
                         Chosen = false,
-                        Image = "",
+                        Image = "~/Assets/products/sinus-wheel-spinner.png",
                         Durometer = "99A",
                         WheelSize = 53
                     },
@@ -236,7 +237,7 @@ namespace SkateShop.Data
                         Description = "Slick, perfect for shredding",
                         UnitsInStock = 10,
                         Chosen = false,
-                        Image = "",
+                        Image = "~/Assets/products/sinus-wheel-wave.png",
                         Durometer = "100's",
                         WheelSize = 53
                     },

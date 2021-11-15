@@ -12,11 +12,20 @@ namespace SkateShop.Pages.ShoppingCart
     {
         public List<CartItemModel> Cart { get; set; }
         public double Total { get; set; }
-        public void OnGet()
+        public void OnGet(int productID)
         {
             //Cart = Data.CartManager.GetCart();
+
             Cart = Data.CartManager.Cart;
 
+            Total = Data.CartManager.GetCartTotal();
+        }
+
+        public void OnPostBuy(int id)
+        {
+            Cart = Data.CartManager.Cart;
+            var CartItemToAdd = Data.ProductManager.GetProduct(id);
+            Data.CartManager.AddToCart(CartItemToAdd);
             Total = Data.CartManager.GetCartTotal();
         }
 
@@ -42,5 +51,6 @@ namespace SkateShop.Pages.ShoppingCart
             Data.CartManager.ClearCart();
             return RedirectToPage("Index");
         }
+
     }
 }
