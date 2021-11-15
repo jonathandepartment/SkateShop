@@ -6,7 +6,7 @@
 @foreach (var p in Model.Product)
 {
     <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="@p.Image" alt="Card image cap">
+        <img style="width: 100%; height: 15Vw; object-fit: cover;" class="card-img-top" src="@p.Image" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">@p.Name </h5>
             <p class="card-text">@p.Price </p>
@@ -14,7 +14,9 @@
             <p class="card-text">@p.Color </p>
             <p class="card-text">@p.Description </p>
             <p class="card-text">@p.UnitsInStock </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <form method="post">
+                <button type="submit" class="btn btn-primary" asp-page="/ShoppingCart/Index" asp-route-id="@p.Id" asp-page-handler="Buy">Add to cart</button>
+            </form>
         </div>
     </div>
 }
