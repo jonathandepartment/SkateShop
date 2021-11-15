@@ -42,5 +42,6 @@ namespace SkateShop.Pages.ShoppingCart
             Data.CartManager.ClearCart();
             return RedirectToPage("Index");
         }
+
     }
 }
