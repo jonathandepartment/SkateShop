@@ -13,12 +13,34 @@ namespace SkateShop.Data
 
         public static void AddToCart(ProductModel product)
         {
-            var productToAdd = new CartItemModel
+            if (IsItInCart(product))
             {
-                Product = product,
-                Count = 1
-            };
-            Cart.Add(productToAdd);
+                foreach (var item in Cart)
+                {
+                    if (item.Product.Id == product.Id)
+                    {
+                        if (item.Count + 1 <= product.UnitsInStock)
+                        {
+                            item.Count++;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var productToAdd = new CartItemModel
+                {
+                    Product = product,
+                    Count = 1
+                };
+                Cart.Add(productToAdd);
+            }
+        }
+
+        private static bool IsItInCart(ProductModel product)
+        {
+            var productsInCart = Cart.Select(item => item.Product);
+            return productsInCart.Contains(product);
         }
 
         public static void ClearCart() => Cart.Clear();
