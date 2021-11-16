@@ -8,7 +8,8 @@ namespace SkateShop.Data
 {
     public class ProductManager
     {
-        public static List<ProductModel> Products { get; set; } = new List<ProductModel>(); 
+        public static List<ProductModel> Products { get; set; } = new List<ProductModel>();
+        public static UInt32 _ID { get; set; } = 49; 
 
         public static List<ProductModel> GetHighlightedProducts() 
         {
@@ -20,6 +21,7 @@ namespace SkateShop.Data
         {
             Products = Products.Where(product => product.Id != id).ToList();
         }
+
 
         public static List<ProductModel> GetSearchedProduct(string search)
         {            
@@ -312,77 +314,20 @@ namespace SkateShop.Data
             return Products;
         }
 
-        public static void AddClothes(int id, double price, String name, Category category, Models.Enum.Color color, string description, int unitsInStocks, bool chosen, string image, Models.Enum.Size size)
+        public static bool AddProduct(ProductModel productToAdd)
         {
-            ProductModel clothing = new Clothing {
-                Id = id,
-                Price = price,
-                Name = name,
-                Category = category,
-                Color = color,
-                Description = description,
-                UnitsInStock = unitsInStocks,
-                Chosen = chosen,
-                Image = image,
-                Size = size
-            };
+            if (Products.Contains(productToAdd)) return false;
 
-            Products.Add(clothing);
-        }
 
-        public static void AddBoards(int id, double price, String name, Category category, Models.Enum.Color color, string description, int unitsInStocks, bool chosen, string image, int boardSize, Material material)
-        {
-            ProductModel board = new Boards
+            var x = Products.FindAll(product => product.Id == productToAdd.Id);
+            if (x.Count != 0)
             {
-                Id = id,
-                Price = price,
-                Name = name,
-                Category = category,
-                Color = color,
-                Description = description,
-                UnitsInStock = unitsInStocks,
-                Chosen = chosen,
-                Image = image,
-                BoardSize = boardSize,
-                Material = material
-            };
-            Products.Add(board);
-        }
+                productToAdd.Id++;
+                AddProduct(productToAdd);
+            }
+            else Products.Add(productToAdd); 
 
-        public static void AddWheels(int id, double price, String name, Category category, Models.Enum.Color color, string description, int unitsInStocks, bool chosen, string image, int wheelSize, string durometer)
-        {
-            ProductModel wheels = new Wheels
-            {
-                Id = id,
-                Price = price,
-                Name = name,
-                Category = category,
-                Color = color,
-                Description = description,
-                UnitsInStock = unitsInStocks,
-                Chosen = chosen,
-                Image = image,
-                WheelSize = wheelSize,
-                Durometer = durometer
-            };
-            Products.Add(wheels);
-        }
-        public static void AddShoes(int id, double price, String name, Category category, Models.Enum.Color color, string description, int unitsInStocks, bool chosen, string image, int shoeSizeEu)
-        {
-            ProductModel shoes = new Shoes
-            {
-                Id = id,
-                Price = price,
-                Name = name,
-                Category = category,
-                Color = color,
-                Description = description,
-                UnitsInStock = unitsInStocks,
-                Chosen = chosen,
-                Image = image,
-                ShoeSizeEu = shoeSizeEu,
-            };
-            Products.Add(shoes);
+            return true; 
         }
 
         public static void EditProduct(ProductModel editedProduct, int id)

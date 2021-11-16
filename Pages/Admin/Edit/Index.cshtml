@@ -45,7 +45,6 @@
         @{
             if (Model.Category == Models.Enum.Category.Hoodie
                 || Model.Category == Models.Enum.Category.Cap
-                || Model.Category == Models.Enum.Category.Hoodie
                 || Model.Category == Models.Enum.Category.Tshirt)
             {
                 @Html.LabelFor(model => Model.Size, "Clothing size", new { @class = "col-3" })
@@ -68,7 +67,7 @@
             }
             if (Model.Category == Models.Enum.Category.Wheel)
             {
-                <h1>Wheels</h1>
+                
                 @Html.LabelFor(model => Model.WheelSize, new { @class = "col-2" })
                 @Html.EditorFor(model => Model.WheelSize, new { htmlAttributes = new { @class = "form-control" } })
 
