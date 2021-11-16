@@ -143,7 +143,6 @@ namespace SkateShop.Pages.Admin.Edit
 
             Data.ProductManager.EditProduct(editedProduct, id);
             return RedirectToPage("/Admin/Index");
-
         }
     }
 }
