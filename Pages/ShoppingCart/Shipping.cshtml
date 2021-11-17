@@ -6,9 +6,9 @@
 
 <div class="row">
     <div class="col"></div>
-    <div class="col bg-light m-5 p-5">
+    <div class="col bg-light m-5 p-5 rounded">
         <div>
-            <h2>Address & Shipping</h2>
+            <h2>Address</h2>
             <form method="post">
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -32,15 +32,15 @@
                     <input asp-for="PhoneNumber" type="text" class="form-control" placeholder="XXX-XXXXXXX">
                     <span style="color: red;" asp-validation-for="PhoneNumber"></span>
                 </div>
-                <h3>Shipping</h3>
-                <div class="form-group">
-                    <input class="form-check-input" type="radio" asp-for="FreightCost" value="@Model.FreightOptions[0]" id="Gender@(@Model.FreightOptions[0])" />PostNord @Model.FreightOptions[0] kr
+                <h2>Shipping</h2>
+                <div class="form-group pl-4">
+                    <input class="form-check-input" type="radio" asp-for="FreightCost" value="@Model.FreightOptions[0]" id="@(@Model.FreightOptions[0])" />PostNord + @Model.FreightOptions[0] kr
                 </div>
-                <div class="form-group">
-                    <input class="form-check-input" type="radio" asp-for="FreightCost" value="@Model.FreightOptions[1]" id="Gender@(@Model.FreightOptions[1])" />DHL @Model.FreightOptions[1] kr
+                <div class="form-group pl-4">
+                    <input class="form-check-input" type="radio" asp-for="FreightCost" value="@Model.FreightOptions[1]" id="@(@Model.FreightOptions[1])" />DHL + @Model.FreightOptions[1] kr
                 </div>
-                <div class="form-group">
-                    <input class="form-check-input" type="radio" asp-for="FreightCost" value="@Model.FreightOptions[2]" id="Gender@(@Model.FreightOptions[2])" />UPS @Model.FreightOptions[2] kr
+                <div class="form-group pl-4">
+                    <input class="form-check-input" type="radio" asp-for="FreightCost" value="@Model.FreightOptions[2]" id="@(@Model.FreightOptions[2])" />UPS + @Model.FreightOptions[2] kr
                 </div>
                 <a class="btn btn-dark mr-1" asp-page="/ShoppingCart/Index">Back</a>
                 <input class="btn btn-primary" type="submit" value="Continue" />

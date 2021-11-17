@@ -6,42 +6,39 @@
 
 <div class="row">
     <div class="col-md-auto">
-        <div class="jumbotron">
+        <div class="jumbotron bg-light">
             <h1 class="display-4">Confirm Order</h1>
-            <hr class="my-4">
-            <ul class="list-unstyled">
-                @foreach (var item in Model.CartItems)
-                {
-                    <li class="media">
-                        <div class="row">
-                            <div class="col">
-                                <img class=" align-self-end img-fluid w-25 img-thumbnail" src="@Url.Content(item.Product.Image)" alt="@item.Product.Description">
-                            </div>
-                            <div class="col">
-                                <div class="media-body">
-                                    <h5 class="mt-0 mb-1">@item.Product.Name</h5>
-                                    @item.Product.Description
-                                </div>
-                            </div>
-                            <div class="col">
-                                @item.Product.Price kr
-                            </div>
-                            <div class="col">
-                                @item.Count st
-                            </div>
-                        </div>
-                    </li>
-                }
-            </ul>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.CartItems)
+                    {
+                        <tr>
+                            <th scope="row"><img class="w-25 img-fluid" src="@Url.Content(item.Product.Image)" alt="@item.Product.Description"></th>
+                            <td>@item.Product.Name - @item.Product.Description</td>
+                            <td>@item.Product.Price kr</td>
+                            <td>@item.Count st</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            
             <hr />
             <div class="mt-3">
                 <h2>Shipping details</h2>
-                <p>@Model.OrderInfo.FirstName @Model.OrderInfo.LastName</p>
-                <p>Address: @Model.OrderInfo.Address</p>
-                <p>Phone number: @Model.OrderInfo.PhoneNumber</p>
+                <p><b>Name:</b> @Model.OrderInfo.FirstName @Model.OrderInfo.LastName</p>
+                <p><b>Address:</b> @Model.OrderInfo.Address</p>
+                <p><b>Phone number:</b> @Model.OrderInfo.PhoneNumber</p>
             </div>
             <hr />
-            <div class="payment-info mt-3">
+            <div class="payment-info mt-3 mb-3">
                 <h2>Payment options</h2>
                 <span class="type d-block mt-3 mb-1">Card type</span>
                 <label class="radio"> <input type="radio" name="card" value="payment" checked> <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png" /></span> </label>
@@ -57,9 +54,11 @@
                 <hr class="line">
                 <div class="d-flex justify-content-between information"><span>Subtotal</span><span>@Model.Total kr</span></div>
                 <div class="d-flex justify-content-between information"><span>Shipping</span><span>@Model.OrderInfo.FreightCost kr</span></div>
-                <div class="d-flex justify-content-between information"><span>Total(Incl. taxes)</span><span>@(Model.Total + Model.Tax + Model.OrderInfo.FreightCost) kr</span></div>
+                <div class="d-flex justify-content-between information"><span>Tax</span><span>@Model.Tax kr</span></div>
+                <hr />
+                <div class="d-flex justify-content-between information"><span><b>Total</b></span><span>@(Model.Total + Model.Tax + Model.OrderInfo.FreightCost) kr</span></div>
             </div>
-            
+
             <form method="post">
                 <div class="form-row">
                     <a class="btn btn-dark mr-2" asp-page="/ShoppingCart/Shipping">Back</a>
@@ -67,8 +66,5 @@
                 </div>
             </form>
         </div>
-    </div>
-    <div class="col-4">
-
     </div>
 </div>
