@@ -26,18 +26,11 @@ namespace SkateShop.Pages.Products
             HoodieList = ProductList.Where(p => p.Category == Models.Enum.Category.Hoodie).ToList();
             SkateBoardList = ProductList.Where(p => p.Category == Models.Enum.Category.Skateboard).ToList();
             WheelList = ProductList.Where(p => p.Category == Models.Enum.Category.Wheel).ToList();
+            ShoeList = ProductList.Where(p => p.Category == Models.Enum.Category.Shoes).ToList();
 
-            //For the moment, Not in use
-            //TshirtList = ProductList.Where(p => p.Category == Models.Enum.Category.Skateboard).ToList();
-            //ShoeList = ProductList.Where(p => p.Category == Models.Enum.Category.Shoes).ToList();
-            //CapList = ProductList.Where(p => p.Category == Models.Enum.Category.Cap).ToList();
+
         }
+            
 
-        //public void OnGetSearch(string searchString)
-        //{
-        //    SearchList = Data.ProductManager.GetProducts()
-        //        .Where(product => product.Name.ToLower().Contains(searchString.ToLower())).ToList();
-             
-        //}
     }
 }
