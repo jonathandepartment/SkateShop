@@ -4,70 +4,76 @@
     ViewData["Title"] = "Cart";
 }
 
-@if (Model.Cart.Count > 0)
-{
-    <div class="row">
-        <div class="col"></div>
-        <div class="col-md-auto">
-            <div class="jumbotron">
-                <h1 class="display-4">Cart</h1>
-                <p class="lead">@Model.Cart.Count items in the cart</p>
-                <hr class="my-4">
-                <form method="post" asp-page="/ShoppingCart/Index" asp-page-handler="Update">
-                    <ul class="list-unstyled">
-                        @foreach (var item in Model.Cart)
-                        {
-                            <li class="media">
-                                <div class="row">
-                                    <div class="col">
-                                        <img class=" align-self-end img-fluid w-25 img-thumbnail" src="@Url.Content(item.Product.Image)" alt="@item.Product.Description">
-                                    </div>
-                                    <div class="col">
-                                        <div class="media-body">
-                                            <h5 class="mt-0 mb-1">@item.Product.Name</h5>
-                                            @item.Product.Description
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        @item.Product.Price kr
-                                    </div>
-                                    <div class="col">
-                                        <input type="number" name="quantities" value="@item.Count" min="1" max="@item.Product.UnitsInStock" style="width: 50px;" />
-                                        <input type="submit" value="Update" />
-                                    </div>
-                                    <div class="col">
-                                        @*<a class="btn btn-danger text-white">Remove</a>*@
-                                        <a class="btn btn-danger text-white" asp-page="/ShoppingCart/Index" asp-page-handler="Delete" asp-route-id="@item.Product.Id">Remove</a>
+<div class="row">
+    <div class="col"></div>
+    <div class="col-md-auto">
+        @if (Model.Cart.Any())
+        {
+        <div class="bg-light p-5 rounded">
+            <a asp-page="/Products/Index" class="btn btn-primary text-white float-right">Continue Shopping</a>
+            <h1 class="display-4">Cart</h1>
+            <p class="lead"><b>@Model.Cart.Count</b> items currently in the cart</p>
+            <hr class="my-4">
+            <form method="post" asp-page="/ShoppingCart/Index" asp-page-handler="Update">
+                <ul class="list-unstyled">
+                    @foreach (var item in Model.Cart)
+                    {
+                        <li class="media m-2">
+                            <div class="row w-100">
+                                <div class="col-3">
+                                    <img class="align-self-end img-fluid w-25" src="@Url.Content(item.Product.Image)" alt="@item.Product.Description">
+                                </div>
+                                <div class="col-2 align-items-center">
+                                    <div class="media-body">
+                                        <h5 class="mt-0 mb-1">@item.Product.Name</h5>
                                     </div>
                                 </div>
-                            </li>
-                        }
-                    </ul>
-                </form>
-                <p><b>Total:</b> @Model.Total kr</p>
+                                <div class="col-2">
+                                    @item.Product.Price kr
+                                </div>
+                                <div class="col-3">
+                                    Units:
+                                    <input type="number" name="quantities" value="@item.Count" min="1" max="@item.Product.UnitsInStock" style="width: 50px;" />
+                                    <input type="submit" value="Update" />
+                                </div>
+                                <div class="col-2">
+                                    <a class="btn btn-sm btn-danger text-white" asp-page="/ShoppingCart/Index" asp-page-handler="Delete" asp-route-id="@item.Product.Id">Remove</a>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                
+            </form>
+            <p class="text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                </svg>
+                Do not delay the purchase, adding
+                items to your cart does not mean booking them.
+            </p>
+            <hr />
+            <p><b>Total:</b> @Model.Total kr</p>
+            <span>
                 <a asp-page="/ShoppingCart/Index" asp-page-handler="Clear" class="btn btn-danger">Clear cart</a>
-                <a asp-page="/ShoppingCart/Shipping" class="btn btn-dark text-white">Continue</a>
-                <hr />
-                <a asp-page="/Products/Index" class="btn btn-primary text-white">Continue Shopping</a>
-            </div>
+                <a asp-page="/ShoppingCart/Shipping" class="btn btn-success text-white">Confirm</a>
+            </span>
+
+            <hr />
+
         </div>
-        <div class="col"></div>
-    </div>
-}
-else
-{
-    <div class="row">
-        <div class="col"></div>
-        <div class="col">
-            <div class="jumbotron">
+        }
+        else
+        {
+            <div class="jumbotron bg-light">
                 <h1 class="display-4">The cart is empty</h1>
-                <p class="lead">For amazing offers and quality products</p>
+                <p class="lead">For amazing offers and quality products, press the button</p>
                 <hr class="my-4">
                 <p class="lead">
                     <a class="btn btn-primary btn-lg" asp-page="/index" role="button">Explore!</a>
                 </p>
             </div>
-        </div>
-        <div class="col"></div>
+        }
     </div>
-}
+    <div class="col"></div>
+</div>
