@@ -79,4 +79,6 @@ body {
     height: 15vw;
     object-fit: cover;
 }
-
+svg:hover{
+    color:dimgray
+}

@@ -3,6 +3,9 @@
 @{
     ViewData["Title"] = "Home page";
 }
+@section Styles{
+    <link rel="stylesheet" href="~/css/product-page.css" />
+}
 <style>
     .top {
         position: absolute;
@@ -16,24 +19,43 @@
 <div class="container">
     <img src="@Url.Content("~/Assets/logo/ShopBackground.jpg")" class="img-fluid" alt="Dudes Skating">
     <div class="top">
-        <h1>Welcom to our Skate WebShop</h1>
+        <h1>Welcome to our Skate WebShop</h1>
     </div>
 </div>
 
-<br /><br />
+<br />
+<br />
 
 <div class="container">
     <div class="row">
         @foreach (var product in Model.ProductList)
         {
-            <div class="col-4">
-                <div class="card mr-" style="width: 20rem; margin-left: 10px">
+            <div class="col-lg-4 col-md-6">
+                <div class="product card mb-5">
                     <img class="card-img-top" src="@Url.Content(product.Image)" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">@product.Name</h5>
-                        <h6>@product.Price</h6>
-                        <p>Left in stock: @product.UnitsInStock</p>
+                        <h4>@product.Price kr</h4>
+
+                        @if (product.UnitsInStock != 0)
+                        {
+                            <p>
+                                Left in stock: @product.UnitsInStock
+                                @if (product.UnitsInStock < 3)
+                                {
+                                    <b style="color:red">Fåtal kvar!</b>
+                                }
+                            </p>
+                        }
+                        else
+                        { <p>Out of stock -</p>}
+
+                    </div>
+                    <div class="card-foot mb-2">
                         <a asp-page="/Products/ProductID" asp-route-ID="@product.Id" class="btn btn-primary">Product Info</a>
+                        <form method="post">
+                            <button type="submit" class="btn btn-primary" asp-page="/ShoppingCart/Index" asp-route-id="@product.Id" asp-page-handler="Buy">Add to cart</button>
+                        </form>
                     </div>
                 </div>
             </div>

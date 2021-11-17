@@ -19,7 +19,10 @@ namespace SkateShop.Pages.Products
         {
             Search = searchString;
             ProductList = ProductManager.GetProducts();
-            SearchList = ProductList.Where(p => p.Name.ToLower().Contains(Search.ToLower())).ToList();
+            if (String.IsNullOrEmpty(searchString))
+                SearchList = ProductList;
+            else SearchList = ProductList.Where(p => p.Name.ToLower().Contains(Search.ToLower())).ToList();
+     
         }
     }
 }
