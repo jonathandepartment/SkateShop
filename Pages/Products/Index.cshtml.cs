@@ -33,11 +33,11 @@ namespace SkateShop.Pages.Products
             //CapList = ProductList.Where(p => p.Category == Models.Enum.Category.Cap).ToList();
         }
 
-        public void OnGetSearch(string searchString)
-        {
-            SearchList = Data.ProductManager.GetProducts()
-                .Where(product => product.Name.ToLower().Contains(searchString.ToLower())).ToList();
+        //public void OnGetSearch(string searchString)
+        //{
+        //    SearchList = Data.ProductManager.GetProducts()
+        //        .Where(product => product.Name.ToLower().Contains(searchString.ToLower())).ToList();
              
-        }
+        //}
     }
 }
