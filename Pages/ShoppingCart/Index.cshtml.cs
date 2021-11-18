@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,8 +15,6 @@ namespace SkateShop.Pages.ShoppingCart
         public double Total { get; set; }
         public void OnGet(int productID)
         {
-            //Cart = Data.CartManager.GetCart();
-
             Cart = Data.CartManager.Cart;
 
             Total = Data.CartManager.GetCartTotal();
@@ -27,6 +26,9 @@ namespace SkateShop.Pages.ShoppingCart
             var CartItemToAdd = Data.ProductManager.GetProduct(id);
             Data.CartManager.AddToCart(CartItemToAdd);
             Total = Data.CartManager.GetCartTotal();
+
+            string cartToJson = JsonSerializer.Serialize(Cart);
+            Response.Cookies.Append("Cart", cartToJson);
         }
 
         public IActionResult OnPostUpdate(int[] quantities)
@@ -36,12 +38,18 @@ namespace SkateShop.Pages.ShoppingCart
             {
                 Cart[i].Count = quantities[i];
             }
+            string cartToJson = JsonSerializer.Serialize(Cart);
+            Response.Cookies.Append("Cart", cartToJson);
+
             return RedirectToPage("Index");
         }
 
         public IActionResult OnGetDelete(int id)
         {
             Data.CartManager.RemoveCartItem(id);
+
+            var newCartToJson = JsonSerializer.Serialize(Data.CartManager.Cart);
+            Response.Cookies.Append("Cart", newCartToJson);
             
             return RedirectToPage("Index");
         }
@@ -49,6 +57,9 @@ namespace SkateShop.Pages.ShoppingCart
         public IActionResult OnGetClear()
         {
             Data.CartManager.ClearCart();
+
+            Response.Cookies.Delete("Cart");
+
             return RedirectToPage("Index");
         }
 
