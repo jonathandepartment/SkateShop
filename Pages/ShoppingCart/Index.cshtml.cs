@@ -13,7 +13,7 @@ namespace SkateShop.Pages.ShoppingCart
     {
         public List<CartItemModel> Cart { get; set; }
         public double Total { get; set; }
-        public void OnGet(int productID)
+        public void OnGet()
         {
             Cart = Data.CartManager.Cart;
 
@@ -48,8 +48,16 @@ namespace SkateShop.Pages.ShoppingCart
         {
             Data.CartManager.RemoveCartItem(id);
 
-            var newCartToJson = JsonSerializer.Serialize(Data.CartManager.Cart);
-            Response.Cookies.Append("Cart", newCartToJson);
+            if (Data.CartManager.Cart.Any())
+            {
+                var cartToJson = JsonSerializer.Serialize(Data.CartManager.Cart);
+                Response.Cookies.Append("Cart", cartToJson);
+            }
+            else
+            {
+                Response.Cookies.Delete("Cart");
+            }
+            
             
             return RedirectToPage("Index");
         }
