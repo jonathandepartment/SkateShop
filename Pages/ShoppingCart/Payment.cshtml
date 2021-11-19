@@ -2,6 +2,7 @@
 @model SkateShop.Pages.ShoppingCart.PaymentModel
 @{
     ViewData["Title"] = "Payment and Confirmation";
+    Models.ProductModel product;
 }
 
 <div class="row">
@@ -20,10 +21,11 @@
                 <tbody>
                     @foreach (var item in Model.CartItems)
                     {
+                        { product = Data.ProductManager.GetProduct(item.ProductId); }
                         <tr>
-                            <th scope="row"><img class="w-25 img-fluid" src="@Url.Content(item.Product.Image)" alt="@item.Product.Description"></th>
-                            <td>@item.Product.Name - @item.Product.Description</td>
-                            <td>@item.Product.Price kr</td>
+                            <th scope="row"><img class="w-25 img-fluid" src="@Url.Content(product.Image)" alt="@product.Description"></th>
+                            <td>@product.Name - @product.Description</td>
+                            <td>@product.Price kr</td>
                             <td>@item.Count st</td>
                         </tr>
                     }

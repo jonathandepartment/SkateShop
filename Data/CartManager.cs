@@ -17,7 +17,7 @@ namespace SkateShop.Data
             {
                 foreach (var item in Cart)
                 {
-                    if (item.Product.Id == product.Id)
+                    if (item.ProductId == product.Id)
                     {
                         if (item.Count + 1 <= product.UnitsInStock)
                         {
@@ -30,7 +30,7 @@ namespace SkateShop.Data
             {
                 var productToAdd = new CartItemModel
                 {
-                    Product = product,
+                    ProductId = product.Id,
                     Count = 1
                 };
                 Cart.Add(productToAdd);
@@ -39,19 +39,19 @@ namespace SkateShop.Data
 
         private static bool IsItInCart(ProductModel product)
         {
-            var productsInCart = Cart.Select(item => item.Product);
-            return productsInCart.Contains(product);
+            var productsInCart = Cart.Select(item => item.ProductId);
+            return productsInCart.Contains(product.Id);
         }
 
         public static void ClearCart() => Cart.Clear();
         public static void RemoveCartItem(int id)
         {
-            Cart = Cart.Where(item => item.Product.Id != id).ToList();
+            Cart = Cart.Where(item => item.ProductId != id).ToList();
         }
 
         public static double GetCartTotal()
         {
-            return Cart.Sum(item => item.Product.Price * item.Count);             
+            return Cart.Sum(item => Data.ProductManager.GetProduct(item.ProductId).Price * item.Count);             
         }
     }
 }

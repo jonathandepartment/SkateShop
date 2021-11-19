@@ -29,7 +29,7 @@ namespace SkateShop.Pages.ShoppingCart
             {
                 foreach (var product in db)
                 {
-                    if (cartItem.Product.Id == product.Id)
+                    if (cartItem.ProductId == product.Id)
                     {
                         if (cartItem.Count > product.UnitsInStock)
                         {
@@ -43,6 +43,8 @@ namespace SkateShop.Pages.ShoppingCart
                 }
             }
             Data.ProductManager.Products = db;
+
+            Response.Cookies.Delete("Cart");
 
             Data.CartManager.ClearCart();
             return RedirectToPage("/ShoppingCart/OrderConfirmation");

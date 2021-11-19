@@ -2,6 +2,7 @@
 @model SkateShop.Pages.ShoppingCart.IndexModel
 @{
     ViewData["Title"] = "Cart";
+    Models.ProductModel product;
 }
 
 <div class="row">
@@ -18,26 +19,27 @@
                 <ul class="list-unstyled">
                     @foreach (var item in Model.Cart)
                     {
+                        { product = Data.ProductManager.GetProduct(item.ProductId); }
                         <li class="media m-2">
                             <div class="row w-100">
                                 <div class="col-3">
-                                    <img class="align-self-end img-fluid w-25" src="@Url.Content(item.Product.Image)" alt="@item.Product.Description">
+                                    <img class="align-self-end img-fluid w-25" src="@Url.Content(product.Image)" alt="@product.Description">
                                 </div>
                                 <div class="col-2 align-items-center">
                                     <div class="media-body">
-                                        <h5 class="mt-0 mb-1">@item.Product.Name</h5>
+                                        <h5 class="mt-0 mb-1">@product.Name</h5>
                                     </div>
                                 </div>
                                 <div class="col-2">
-                                    @item.Product.Price kr
+                                    @product.Price kr
                                 </div>
                                 <div class="col-3">
                                     Units:
-                                    <input type="number" name="quantities" value="@item.Count" min="1" max="@item.Product.UnitsInStock" style="width: 50px;" />
+                                    <input type="number" name="quantities" value="@item.Count" min="1" max="@product.UnitsInStock" style="width: 50px;" />
                                     <input type="submit" value="Update" />
                                 </div>
                                 <div class="col-2">
-                                    <a class="btn btn-sm btn-danger text-white" asp-page="/ShoppingCart/Index" asp-page-handler="Delete" asp-route-id="@item.Product.Id">Remove</a>
+                                    <a class="btn btn-sm btn-danger text-white" asp-page="/ShoppingCart/Index" asp-page-handler="Delete" asp-route-id="@product.Id">Remove</a>
                                 </div>
                             </div>
                         </li>

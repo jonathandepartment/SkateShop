@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SkateShop.Models;
 using SkateShop.Data;
+using System.Text.Json;
 
 namespace SkateShop.Pages
 {
@@ -16,9 +17,15 @@ namespace SkateShop.Pages
 
         public void OnGet()
         {
+            if (!string.IsNullOrEmpty(Request.Cookies["Cart"]))
+            {
+                var jsonToList = JsonSerializer.Deserialize<List<CartItemModel>>(Request.Cookies["Cart"]);
+                CartManager.Cart = jsonToList;
+            }
+
             ProductList = new List<ProductModel>();
 
-            ProductList = Data.ProductManager.GetProducts();
+            ProductList = ProductManager.GetProducts();
 
             ProductList = ProductList.Where(p => p.Chosen).ToList();
         }
