@@ -7,7 +7,6 @@ namespace SkateShop.Models
 {
     public class CartItemModel
     {
-        //public Models.ProductModel Product { get; set; }
         public int ProductId { get; set; }
         public int Count { get; set; }
     }
