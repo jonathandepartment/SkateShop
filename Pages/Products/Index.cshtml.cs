@@ -12,7 +12,6 @@ namespace SkateShop.Pages.Products
     public class IndexModel : PageModel
     {
         public List<ProductModel> ProductList { get; set; }
-        public List<ProductModel> CapList { get; set; }
         public List<ProductModel> HoodieList { get; set; }
         public List<ProductModel> SkateBoardList { get; set; }
         public List<ProductModel> TshirtList { get; set; }
