@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
 using SkateShop.Models;
 using static SkateShop.Models.Enum;
 
@@ -9,9 +11,9 @@ namespace SkateShop.Data
     public class ProductManager
     {
         public static List<ProductModel> Products { get; set; } = new List<ProductModel>();
-        public static UInt32 _ID { get; set; } = 49; 
+        public static UInt32 _ID { get; set; } = 49;
 
-        public static List<ProductModel> GetHighlightedProducts() 
+        public static List<ProductModel> GetHighlightedProducts()
         {
             return GetProducts().Where(product => product.Chosen)
                 .ToList();
@@ -24,8 +26,8 @@ namespace SkateShop.Data
 
 
         public static List<ProductModel> GetSearchedProduct(string search)
-        {            
-            return GetProducts().Where(p => p.Name.ToLower().Contains(search.ToLower())).ToList();            
+        {
+            return GetProducts().Where(p => p.Name.ToLower().Contains(search.ToLower())).ToList();
         }
 
         public static ProductModel GetProduct(int id)
@@ -36,7 +38,23 @@ namespace SkateShop.Data
         {
             if (!Products.Any())
             {
-                Products = new List<ProductModel>()
+                try
+                {
+                    string url = "https://localhost:44303/product";
+                    HttpClient httpClient = new HttpClient();
+
+                    var response = httpClient.GetAsync(url)
+                        .GetAwaiter().GetResult();
+                    var apiContent = response.Content.ReadAsStringAsync()
+                        .GetAwaiter().GetResult();
+
+                    var serializedList = JsonSerializer.Deserialize<List<ProductApiModel>>(apiContent);
+
+                    Products = GetConvertedList(serializedList);
+                }
+                catch
+                {
+                    Products = new List<ProductModel>()
                 {
                     new Clothing
                     {
@@ -48,7 +66,7 @@ namespace SkateShop.Data
                         Description = "Durable, soft and dependable for the gnarliest skaters",
                         UnitsInStock = 10,
                         Chosen = true,
-                        Image = "~/Assets/products/sinus-hoodie-ash.png", 
+                        Image = "~/Assets/products/sinus-hoodie-ash.png",
                         Size = Models.Enum.Size.L
                     },
                     new Clothing
@@ -309,6 +327,7 @@ namespace SkateShop.Data
                         ShoeSizeEu = 42
                     },
                 };
+                }
             }
 
             return Products;
@@ -325,15 +344,131 @@ namespace SkateShop.Data
                 productToAdd.Id++;
                 AddProduct(productToAdd);
             }
-            else Products.Add(productToAdd); 
+            else Products.Add(productToAdd);
 
-            return true; 
+            return true;
         }
 
         public static void EditProduct(ProductModel editedProduct, int id)
         {
             int index = Products.IndexOf(GetProducts().Where(product => product.Id == id).ToList()[0]);
             Products[index] = editedProduct;
+        }
+
+        private static Color ChooseColor(string color)
+        {
+            Color c = color switch
+            {
+                "Blue" => Color.Blue,
+                "Green" => Color.Green,
+                "Grey" => Color.Grey,
+                "Patterned" => Color.Patterned,
+                "Pink" => Color.Pink,
+                "Purple" => Color.Purple,
+                "Red" => Color.Red,
+                "Yellow" => Color.Yellow,
+                _ => Color.White
+            };
+            return c;
+        }
+        private static Category ChooseCategory(string category)
+        {
+            Category c = category switch
+            {
+                "Cap" => Category.Cap,
+                "Hoodie" => Category.Hoodie,
+                "Skateboard" => Category.Skateboard,
+                "Tshirt" => Category.Tshirt,
+                "Shoes" => Category.Shoes,
+                _ => Category.Wheel
+            };
+            return c;
+        }
+        private static Size ChooseSize(string size)
+        {
+            Size s = size switch
+            {
+                "L" => Size.L,
+                "M" => Size.M,
+                "S" => Size.S,
+                _ => Size.One_size
+            };
+            return s;
+        }
+        private static List<ProductModel> GetConvertedList(List<ProductApiModel> list)
+        {
+            List<ProductModel> productsFromApi = new List<ProductModel>();
+            foreach (var product in list)
+            {
+                switch (product.category)
+                {
+                    case "Hoodie":
+                        productsFromApi.Add(new Clothing
+                        {
+                            Id = product.id,
+                            Name = product.name,
+                            Price = product.price,
+                            Category = ChooseCategory(product.category),
+                            Color = ChooseColor(product.color),
+                            Size = ChooseSize(product.size),
+                            Image = product.image,
+                            UnitsInStock = product.unitsInStock,
+                            Description = product.description,
+                            Chosen = product.chosen
+                        });
+                        break;
+                    case "Skateboard":
+                        productsFromApi.Add(new Boards
+                        {
+                            Id = product.id,
+                            Name = product.name,
+                            Price = product.price,
+                            Category = ChooseCategory(product.category),
+                            Color = ChooseColor(product.color),
+                            BoardSize = 32,
+                            Image = product.image,
+                            UnitsInStock = product.unitsInStock,
+                            Description = product.description,
+                            Chosen = product.chosen,
+                            Material = product.additionalInformation == "Wood" ? Material.Wood : Material.Plastic
+                        });
+                        break;
+                    case "Wheel":
+                        productsFromApi.Add(new Wheels
+                        {
+                            Id = product.id,
+                            Name = product.name,
+                            Price = product.price,
+                            Category = ChooseCategory(product.category),
+                            Color = ChooseColor(product.color),
+                            WheelSize = int.Parse(product.size),
+                            Image = product.image,
+                            UnitsInStock = product.unitsInStock,
+                            Description = product.description,
+                            Chosen = product.chosen,
+                            Durometer = product.additionalInformation
+                        });
+                        break;
+                    case "Shoes":
+                        productsFromApi.Add(new Shoes
+                        {
+                            Id = product.id,
+                            Name = product.name,
+                            Price = product.price,
+                            Category = ChooseCategory(product.category),
+                            Color = ChooseColor(product.color),
+                            ShoeSizeEu = int.Parse(product.size),
+                            Image = product.image,
+                            UnitsInStock = product.unitsInStock,
+                            Description = product.description,
+                            Chosen = product.chosen,
+                        });
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return productsFromApi;
         }
     }
 }
