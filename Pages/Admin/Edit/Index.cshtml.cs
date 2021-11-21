@@ -81,7 +81,6 @@ namespace SkateShop.Pages.Admin.Edit
         public IActionResult OnPostSubmit(int id, Models.Enum.Category category)
         {
             Models.ProductModel editedProduct = null;
-            Console.WriteLine(category);
 
             if (category == Models.Enum.Category.Hoodie
                 || category == Models.Enum.Category.Cap
