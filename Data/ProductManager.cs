@@ -34,6 +34,10 @@ namespace SkateShop.Data
         {
             return GetProducts().Where(product => product.Id == id).ToList()[0];
         }
+        /// <summary>
+        /// Tries to fetch from the api, if it fails loads a local db.
+        /// </summary>
+        /// <returns>A list of products</returns>
         public static List<ProductModel> GetProducts()
         {
             if (!Products.Any())
@@ -395,6 +399,11 @@ namespace SkateShop.Data
             };
             return s;
         }
+        /// <summary>
+        /// Converts the apimodel to the local productmodel subclasses
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         private static List<ProductModel> GetConvertedList(List<ProductApiModel> list)
         {
             List<ProductModel> productsFromApi = new List<ProductModel>();
@@ -425,7 +434,7 @@ namespace SkateShop.Data
                             Price = product.price,
                             Category = ChooseCategory(product.category),
                             Color = ChooseColor(product.color),
-                            BoardSize = 32,
+                            BoardSize = Convert.ToDouble(product.size),
                             Image = product.image,
                             UnitsInStock = product.unitsInStock,
                             Description = product.description,
